@@ -1,0 +1,14 @@
+version: "1.0"
+
+services:
+  web:
+    build: .
+    image: react-app-2
+    # "5000:3000" : <portHost>:<portContainer>: port container expose in docker file
+    ports:
+      - "5000:3000"
+    networks:
+      - test_network
+networks:
+  test_network:
+    driver: bridge
