@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React UPDATE SOMETHING FOR TRIGGER MERGE REQUEST
+          Learn React UPDATE SOMETHING FOR TRIGGER MERGE REQUEST new
         </a>
       </header>
     </div>
