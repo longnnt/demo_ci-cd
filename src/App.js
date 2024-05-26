@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React UPDATE SOMETHING FOR TRIGGER MERGE REQUEST new
+          I have achivement when automatic deploy
         </a>
       </header>
     </div>
