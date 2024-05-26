@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React REMOVE SOMETHING TO GET TRIGGER BUILD JENKINS
+          Learn React UPDATE SOMETHING FOR TRIGGER MERGE REQUEST
         </a>
       </header>
     </div>
