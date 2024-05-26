@@ -1,90 +1,90 @@
-pipeline {
-    agent any
+// pipeline {
+//     agent any
 
-    environment {
-        FOO = "initial FOO env value"
-        BRANCH_NAME = 'develop'
-    }
+//     environment {
+//         FOO = "initial FOO env value"
+//         BRANCH_NAME = 'develop'
+//     }
 
-    stages {
-        stage("Checkout branch") {
-            steps {
-                checkout([
-                    $class: 'GitSCM',
-                    branches: [[name: '*/develop']],
-                    userRemoteConfigs: [[url: 'https://github.com/longnnt/demo_ci-cd.git']]
-                ])
-                echo "Cloned project from GitHub"
-            }
-        }
-        stage("Append text to file and create file") {
-            steps {
-                script {
-                    // Check if the file exists, if not create and initialize it
-                    if (!fileExists('version.txt')) {
-                        def date = new Date()
-                        def data = "version: 1.0.0\n" + date.toString()
-                        writeFile(file: 'version.txt', text: data)
-                    }
-                }
-            }
-        }
-        stage('Read and Update Version') {
-            steps {
-                script {
-                    // Closure to increment version number
-                    def incrementVersion = { version ->
-                        def parts = version.split('\\.')
-                        def major = parts[0].toInteger()
-                        def minor = parts[1].toInteger()
-                        def patch = parts[2].toInteger()
+//     stages {
+//         stage("Checkout branch") {
+//             steps {
+//                 checkout([
+//                     $class: 'GitSCM',
+//                     branches: [[name: '*/develop']],
+//                     userRemoteConfigs: [[url: 'https://github.com/longnnt/demo_ci-cd.git']]
+//                 ])
+//                 echo "Cloned project from GitHub"
+//             }
+//         }
+//         stage("Append text to file and create file") {
+//             steps {
+//                 script {
+//                     // Check if the file exists, if not create and initialize it
+//                     if (!fileExists('version.txt')) {
+//                         def date = new Date()
+//                         def data = "version: 1.0.0\n" + date.toString()
+//                         writeFile(file: 'version.txt', text: data)
+//                     }
+//                 }
+//             }
+//         }
+//         stage('Read and Update Version') {
+//             steps {
+//                 script {
+//                     // Closure to increment version number
+//                     def incrementVersion = { version ->
+//                         def parts = version.split('\\.')
+//                         def major = parts[0].toInteger()
+//                         def minor = parts[1].toInteger()
+//                         def patch = parts[2].toInteger()
 
-                        if (patch < 9) {
-                            patch += 1
-                        } else {
-                            patch = 0
-                            if (minor < 9) {
-                                minor += 1
-                            } else {
-                                minor = 0
-                                major += 1
-                            }
-                        }
+//                         if (patch < 9) {
+//                             patch += 1
+//                         } else {
+//                             patch = 0
+//                             if (minor < 9) {
+//                                 minor += 1
+//                             } else {
+//                                 minor = 0
+//                                 major += 1
+//                             }
+//                         }
 
-                        return "${major}.${minor}.${patch}"
-                    }
+//                         return "${major}.${minor}.${patch}"
+//                     }
 
-                    // Read the file content
-                    def data = readFile(file: 'version.txt')
-                    def lines = data.split('\n')
-                    def versionLine = lines.find { it.startsWith('version: ') }
-                    def versionNumber = versionLine.split(': ')[1]
+//                     // Read the file content
+//                     def data = readFile(file: 'version.txt')
+//                     def lines = data.split('\n')
+//                     def versionLine = lines.find { it.startsWith('version: ') }
+//                     def versionNumber = versionLine.split(': ')[1]
 
-                    // Increment the version number
-                    def newVersion = incrementVersion(versionNumber)
-                    echo "This is version after update: ${newVersion}"
+//                     // Increment the version number
+//                     def newVersion = incrementVersion(versionNumber)
+//                     echo "This is version after update: ${newVersion}"
 
-                    // Update the file with the new version
-                    // def date = new Date()
-                    // def updateData = "version: ${newVersion}\n" + date.toString()
-                    // writeFile(file: 'version.txt', text: updateData)
-                }
-            }
-        }
+//                     // Update the file with the new version
+//                     // def date = new Date()
+//                     // def updateData = "version: ${newVersion}\n" + date.toString()
+//                     // writeFile(file: 'version.txt', text: updateData)
+//                 }
+//             }
+//         }
         
-    }
-    post {
-        always {
-            script {
-                if (env.CHANGE_ID) {
-                    echo 'This build was triggered by a pull request1111111111111111111111: ' + env.CHANGE_ID
-                    echo 'Pull Request URL: ' + env.CHANGE_URL
-                } else if (env.BRANCH_NAME == 'develop') {
-                    echo 'This build was triggered by the develop branch.'
-                } else {
-                    echo 'This build was triggered by branch: ' + env.BRANCH_NAME
-                }
-            }
-        }
-    }
-}
+//     }
+//     post {
+//         always {
+//             script {
+//                 if (env.CHANGE_ID) {
+//                     echo 'This build was triggered by a pull request1111111111111111111111: ' + env.CHANGE_ID
+//                     echo 'Pull Request URL: ' + env.CHANGE_URL
+//                 } else if (env.BRANCH_NAME == 'develop') {
+//                     echo 'This build was triggered by the develop branch.'
+//                 } else {
+//                     echo 'This build was triggered by branch: ' + env.BRANCH_NAME
+//                 }
+//             }
+//         }
+//     }
+// }
