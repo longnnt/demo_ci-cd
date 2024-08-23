@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Update for pipeline
+          Update for pipeline using AWS CLI 
         </p>
         <a
           className="App-link"
