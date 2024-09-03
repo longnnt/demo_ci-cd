@@ -30,5 +30,14 @@ echo installing application with npm
 cd /var/www/
 # sudo npm install
 
-echo installing pm2
-sudo npm install pm2 -g
+# echo installing pm2
+# sudo npm install pm2 -g
+
+# Check if PM2 is installed, if not install it
+echo "Checking if PM2 is installed"
+if command -v pm2 >/dev/null 2>&1; then
+  echo "PM2 is already installed"
+else
+  echo "PM2 is not installed, installing PM2"
+  sudo npm install pm2 -g
+fi
