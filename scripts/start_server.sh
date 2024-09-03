@@ -8,4 +8,12 @@ cd /var/www/
 
 # start the application with pm2
 echo starting application...
-sudo pm2 serve build/ --name 'react--build' --spa
+# sudo pm2 serve build/ --name 'react--build' --spa -f
+
+# Check if the process 'react--build' is running
+if pm2 list | grep -q "react--build"; then
+    echo "Process 'react--build' is running. Reloading..."
+    pm2 reload react--build
+else
+    sudo pm2 serve build/ --name 'react--build' --spa -f
+fi
