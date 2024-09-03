@@ -13,7 +13,7 @@ echo starting application...
 # Check if the process 'react--build' is running
 if pm2 list | grep -q "react--build"; then
     echo "Process 'react--build' is running. Reloading..."
-    pm2 reload react--build
+    sudo pm2 reload react--build
 else
     sudo pm2 serve build/ --name 'react--build' --spa -f
 fi
