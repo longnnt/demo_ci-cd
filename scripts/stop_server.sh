@@ -4,5 +4,8 @@
 # simply stop the application process using pm2
 echo stopping server
 sudo su
-pm2 stop react--build
+if pm2 list | grep -q "react--build"; then
+    echo "Process 'react--build' is stopping. For new app"
+    pm2 stop react--build
+else
 exit
