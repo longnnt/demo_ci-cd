@@ -7,4 +7,4 @@ sudo su
 if pm2 list | grep -q "react--build"; then
     echo "Process 'react--build' is stopping. For new app"
     pm2 stop react--build
-exit
+else exit 1 fi
